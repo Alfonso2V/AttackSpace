@@ -1,0 +1,138 @@
+html {
+  background: url("/assets/images/cieloEstrellado.jpeg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  background: #F9F8F8;
+}
+body .instrucciones {
+  position: absolute;
+  top: 20vh;
+  display: grid;
+  width: 100vw;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(10vh, auto);
+  font-size: 2vmin;
+}
+body .instrucciones .introduccion {
+  display: inline-block;
+  align-items: center;
+  grid-column: 2;
+  grid-row: 1;
+}
+body .instrucciones .senalamiento {
+  grid-column: 2;
+  grid-row: 2;
+}
+body .instrucciones .senalamiento .dedotouch {
+  filter: invert(1);
+  width: 10vmin;
+}
+body p {
+  color: whitesmoke;
+  padding: 0;
+  margin: 0;
+}
+
+header.header {
+  position: absolute;
+  top: 1vh;
+  left: 0;
+  width: 100%;
+}
+header.header h1 {
+  font-size: 9vmin;
+  color: #222222;
+  text-align: center;
+  margin-top: 0;
+  text-transform: uppercase;
+  font-weight: 900;
+  text-shadow: 2px 0 #F9F8F8, -1px 0 yellow, -2px 0 green;
+}
+
+.glitch-window {
+  position: absolute;
+  top: -2vh;
+  left: -3px;
+  width: 100%;
+  color: #222222;
+  text-shadow: 2px 0 #F9F8F8, -1px 0 yellow, -2px 0 green;
+  overflow: hidden;
+  animation: crt-me 4500ms infinite linear alternate-reverse;
+}
+
+@-webkit-keyframes crt-me {
+  0% {
+    clip: rect(31px, 9999px, 94px, 0);
+  }
+  10% {
+    clip: rect(112px, 9999px, 76px, 0);
+  }
+  20% {
+    clip: rect(85px, 9999px, 77px, 0);
+  }
+  30% {
+    clip: rect(27px, 9999px, 97px, 0);
+  }
+  40% {
+    clip: rect(64px, 9999px, 98px, 0);
+  }
+  50% {
+    clip: rect(61px, 9999px, 85px, 0);
+  }
+  60% {
+    clip: rect(99px, 9999px, 114px, 0);
+  }
+  70% {
+    clip: rect(34px, 9999px, 115px, 0);
+  }
+  80% {
+    clip: rect(98px, 9999px, 129px, 0);
+  }
+  90% {
+    clip: rect(43px, 9999px, 96px, 0);
+  }
+  100% {
+    clip: rect(82px, 9999px, 64px, 0);
+  }
+}
+
+@keyframes crt-me {
+  0% {
+    clip: rect(31px, 9999px, 94px, 0);
+  }
+  10% {
+    clip: rect(112px, 9999px, 76px, 0);
+  }
+  20% {
+    clip: rect(85px, 9999px, 77px, 0);
+  }
+  30% {
+    clip: rect(27px, 9999px, 97px, 0);
+  }
+  40% {
+    clip: rect(64px, 9999px, 98px, 0);
+  }
+  50% {
+    clip: rect(61px, 9999px, 85px, 0);
+  }
+  60% {
+    clip: rect(99px, 9999px, 114px, 0);
+  }
+  70% {
+    clip: rect(34px, 9999px, 115px, 0);
+  }
+  80% {
+    clip: rect(98px, 9999px, 129px, 0);
+  }
+  90% {
+    clip: rect(43px, 9999px, 96px, 0);
+  }
+  100% {
+    clip: rect(82px, 9999px, 64px, 0);
+  }
+}/*# sourceMappingURL=howToPlay.css.map */
