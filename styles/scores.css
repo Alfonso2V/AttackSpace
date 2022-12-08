@@ -1,0 +1,209 @@
+@import 'https://fonts.googleapis.com/css?family=Montserrat:300,400,700';
+@-webkit-keyframes tipsy {
+  0% {
+    transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) rotate(360deg);
+  }
+}
+@keyframes tipsy {
+  0% {
+    transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) rotate(360deg);
+  }
+}
+body {
+  font-family: helvetica, arial, sans-serif;
+  background-color: #2e2e31;
+}
+
+h1 {
+  color: #fffbf1;
+  text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
+  font-size: 6vmin;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: -3px;
+  margin: 0;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+h1:before,
+h1:after {
+  content: "";
+  padding: 0.9em 0.4em;
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  top: 50%;
+  display: block;
+  border: 9px solid rgb(0, 255, 34);
+  transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  -webkit-animation: 12s infinite alternate ease-in-out tipsy;
+          animation: 12s infinite alternate ease-in-out tipsy;
+}
+
+h1:before {
+  border-color: #4fd94a #4fd94a rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+  z-index: -1;
+}
+
+h1:after {
+  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #4fd94a #4fd94a;
+  box-shadow: 25px 25px 25px rgba(46, 46, 49, 0.8);
+}
+
+.tableP {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  margin: 1em 0;
+  min-width: 300px;
+}
+.tableP tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.tableP th {
+  display: none;
+}
+.tableP td {
+  display: block;
+}
+.tableP td:first-child {
+  padding-top: 0.5em;
+}
+.tableP td:last-child {
+  padding-bottom: 0.5em;
+}
+.tableP td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 6.5em;
+  display: inline-block;
+}
+@media (min-width: 480px) {
+  .tableP td:before {
+    display: none;
+  }
+}
+.tableP th,
+.tableP td {
+  text-align: left;
+}
+@media (min-width: 480px) {
+  .tableP th,
+.tableP td {
+    display: table-cell;
+    padding: 0.25em 0.5em;
+  }
+  .tableP th:first-child,
+.tableP td:first-child {
+    padding-left: 0;
+  }
+  .tableP th:last-child,
+.tableP td:last-child {
+    padding-right: 0;
+  }
+}
+
+.tableP {
+  background: #34495E;
+  color: #fff;
+  border-radius: 0.4em;
+  overflow: hidden;
+}
+.tableP tr {
+  border-color: #46637f;
+}
+.tableP th,
+.tableP td {
+  margin: 0.5em 1em;
+}
+@media (min-width: 480px) {
+  .tableP th,
+.tableP td {
+    padding: 1em !important;
+  }
+}
+.tableP th,
+.tableP td:before {
+  color: #dd5;
+}
+
+.button {
+  --offset: 10px;
+  --border-size: 2px;
+  display: block;
+  position: absolute;
+  top: 78%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  padding: 1.5em 3em;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 0;
+  background: transparent;
+  color: #e55743;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  outline: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 var(--border-size) currentcolor;
+  transition: background 0.8s ease;
+}
+.button:hover {
+  background: rgba(100, 0, 0, 0.03);
+}
+.button__horizontal, .button__vertical {
+  position: absolute;
+  top: var(--horizontal-offset, 0);
+  right: var(--vertical-offset, 0);
+  bottom: var(--horizontal-offset, 0);
+  left: var(--vertical-offset, 0);
+  transition: transform 0.8s ease;
+  will-change: transform;
+}
+.button__horizontal::before, .button__vertical::before {
+  content: "";
+  position: absolute;
+  border: inherit;
+}
+.button__horizontal {
+  --vertical-offset: calc(var(--offset) * -1);
+  border-top: var(--border-size) solid currentcolor;
+  border-bottom: var(--border-size) solid currentcolor;
+}
+.button__horizontal::before {
+  top: calc(var(--vertical-offset) - var(--border-size));
+  bottom: calc(var(--vertical-offset) - var(--border-size));
+  left: calc(var(--vertical-offset) * -1);
+  right: calc(var(--vertical-offset) * -1);
+}
+.button:hover .button__horizontal {
+  transform: scaleX(0);
+}
+.button__vertical {
+  --horizontal-offset: calc(var(--offset) * -1);
+  border-left: var(--border-size) solid currentcolor;
+  border-right: var(--border-size) solid currentcolor;
+}
+.button__vertical::before {
+  top: calc(var(--horizontal-offset) * -1);
+  bottom: calc(var(--horizontal-offset) * -1);
+  left: calc(var(--horizontal-offset) - var(--border-size));
+  right: calc(var(--horizontal-offset) - var(--border-size));
+}
+.button:hover .button__vertical {
+  transform: scaleY(0);
+}/*# sourceMappingURL=scores.css.map */

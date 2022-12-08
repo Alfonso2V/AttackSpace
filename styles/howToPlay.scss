@@ -5,9 +5,6 @@ html {
 
 $background-color: #F9F8F8;
 $headline-color: #222222;
-// * {
-//     box-sizing: border-box;
-// }
 body {
     font-family: 'Raleway', sans-serif;
     background: $background-color;
@@ -15,10 +12,11 @@ body {
         position: absolute;
         top: 20vh;
         display: grid;
-        width: 100vw;
+        width: 90vw;
+        left: 5vw;
         align-items: center;
         grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+        gap: 5px;
         grid-auto-rows: minmax(10vh, auto);
         font-size: 2vmin;
         .introduccion {
@@ -27,18 +25,38 @@ body {
             grid-column: 2;
             grid-row: 1;
         }
-        .senalamiento {
-            grid-column: 2;
+        .senalamientoTouch {
+            grid-column: 1;
             grid-row: 2;
             .dedotouch {
                 filter: invert(1);
                 width: 10vmin;
             }
         }
+        .senalamientoMouse {
+            grid-column: 3;
+            grid-row: 2;
+            .dedoMouse {
+                width: 15vmin;
+            }
+        }
+        .button {
+            grid-column: 2;
+            grid-row: 3;
+            button {
+                cursor: pointer;
+            }
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+    h3 {
+        text-align: center;
+        color: gray;
     }
     p {
         color: whitesmoke;
-        // display: block;
         padding: 0;
         margin: 0;
     }
@@ -107,3 +125,5 @@ header.header {
         clip: rect(82px, 9999px, 64px, 0)
     }
 }
+
+// Efecto de boton

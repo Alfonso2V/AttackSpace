@@ -11,10 +11,11 @@ body .instrucciones {
   position: absolute;
   top: 20vh;
   display: grid;
-  width: 100vw;
+  width: 90vw;
+  left: 5vw;
   align-items: center;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 5px;
   grid-auto-rows: minmax(10vh, auto);
   font-size: 2vmin;
 }
@@ -24,13 +25,34 @@ body .instrucciones .introduccion {
   grid-column: 2;
   grid-row: 1;
 }
-body .instrucciones .senalamiento {
-  grid-column: 2;
+body .instrucciones .senalamientoTouch {
+  grid-column: 1;
   grid-row: 2;
 }
-body .instrucciones .senalamiento .dedotouch {
+body .instrucciones .senalamientoTouch .dedotouch {
   filter: invert(1);
   width: 10vmin;
+}
+body .instrucciones .senalamientoMouse {
+  grid-column: 3;
+  grid-row: 2;
+}
+body .instrucciones .senalamientoMouse .dedoMouse {
+  width: 15vmin;
+}
+body .instrucciones .button {
+  grid-column: 2;
+  grid-row: 3;
+}
+body .instrucciones .button button {
+  cursor: pointer;
+}
+body .instrucciones .button a {
+  text-decoration: none;
+}
+body h3 {
+  text-align: center;
+  color: gray;
 }
 body p {
   color: whitesmoke;

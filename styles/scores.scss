@@ -1,0 +1,196 @@
+    @keyframes tipsy {
+        0% {
+            transform: translateX(-50%) translateY(-50%) rotate(0deg);
+        }
+        100% {
+            transform: translateX(-50%) translateY(-50%) rotate(360deg);
+        }
+    }
+    
+    body {
+        font-family: helvetica, arial, sans-serif;
+        background-color: #2e2e31;
+    }
+    
+    h1 {
+        color: #fffbf1;
+        text-shadow: 0 20px 25px #2e2e31, 0 40px 60px #2e2e31;
+        font-size: 6vmin;
+        font-weight: bold;
+        text-decoration: none;
+        letter-spacing: -3px;
+        margin: 0;
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    
+    h1:before,
+    h1:after {
+        content: '';
+        padding: .9em .4em;
+        position: absolute;
+        left: 50%;
+        width: 100%;
+        top: 50%;
+        display: block;
+        border: 9px solid rgb(0, 255, 34);
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+        animation: 12s infinite alternate ease-in-out tipsy;
+    }
+    
+    h1:before {
+        border-color: #4fd94a #4fd94a rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+        z-index: -1;
+    }
+    
+    h1:after {
+        border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #4fd94a #4fd94a;
+        box-shadow: 25px 25px 25px rgba(46, 46, 49, .8);
+    }
+    
+    //----------------------------------------------- Tabla ---------------------------
+    $breakpoint-alpha: 480px; // adjust to your needs
+    .tableP {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        margin: 1em 0;
+        min-width: 300px; // adjust to your needs
+        tr {
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!   
+        }
+        td {
+            display: block;
+            &:first-child {
+                padding-top: .5em;
+            }
+            &:last-child {
+                padding-bottom: .5em;
+            }
+            &:before {
+                content: attr(data-th)": "; // who knew you could do this? The internet, that's who.
+                font-weight: bold;
+                // optional stuff to make it look nicer
+                width: 6.5em; // magic number :( adjust according to your own content
+                display: inline-block;
+                // end options
+                @media (min-width: $breakpoint-alpha) {
+                    display: none;
+                }
+            }
+        }
+        th,
+        td {
+            text-align: left;
+            @media (min-width: $breakpoint-alpha) {
+                display: table-cell;
+                padding: .25em .5em;
+                &:first-child {
+                    padding-left: 0;
+                }
+                &:last-child {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+    
+    // presentational styling
+    @import 'https://fonts.googleapis.com/css?family=Montserrat:300,400,700';
+    .tableP {
+        background: #34495E;
+        color: #fff;
+        border-radius: .4em;
+        overflow: hidden;
+        tr {
+            border-color: lighten(#34495E, 10%);
+        }
+        th,
+        td {
+            margin: .5em 1em;
+            @media (min-width: $breakpoint-alpha) {
+                padding: 1em !important;
+            }
+        }
+        th,
+        td:before {
+            color: #dd5;
+        }
+    }
+    
+    //--------------------------- Boton regresar ---------------------
+    .button {
+        --offset: 10px;
+        --border-size: 2px;
+        display: block;
+        position: absolute;
+        top: 78%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        padding: 1.5em 3em;
+        appearance: none;
+        border: 0;
+        background: transparent;
+        color: #e55743;
+        text-transform: uppercase;
+        letter-spacing: .25em;
+        outline: none;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 0;
+        box-shadow: inset 0 0 0 --border-size currentcolor;
+        // transition: background .8s ease;
+        &:hover {
+            background: rgba(100, 0, 0, .03);
+        }
+        &__horizontal,
+        &__vertical {
+            position: absolute;
+            top: --horizontal-offset, 0;
+            right: --vertical-offset, 0;
+            bottom: --horizontal-offset, 0;
+            left: --vertical-offset, 0;
+            transition: transform .8s ease;
+            will-change: transform;
+            &::before {
+                content: '';
+                position: absolute;
+                border: inherit;
+            }
+        }
+        &__horizontal {
+            --vertical-offset: calc(--offset * -1);
+            border-top: --border-size solid currentcolor;
+            border-bottom: --border-size solid currentcolor;
+            &::before {
+                top: calc(--vertical-offset --border-size);
+                bottom: calc(--vertical-offset --border-size);
+                left: calc(--vertical-offset * -1);
+                right: calc(--vertical-offset * -1);
+            }
+        }
+        &:hover &__horizontal {
+            transform: scaleX(0);
+        }
+        &__vertical {
+            --horizontal-offset: calc(--offset * -1);
+            border-left: --border-size solid currentcolor;
+            border-right: --border-size solid currentcolor;
+            &::before {
+                top: calc(--horizontal-offset * -1);
+                bottom: calc(--horizontal-offset * -1);
+                left: calc(--horizontal-offset - --border-size);
+                right: calc(--horizontal-offset - --border-size);
+            }
+        }
+        &:hover &__vertical {
+            transform: scaleY(0);
+        }
+    }
