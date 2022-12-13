@@ -27,6 +27,7 @@ var bullets = []; //Array de balas
 var newEnemis = []; //Array de enemigos nuevos
 var game = new Phaser.Game(config); //Tamaño de ventana y motor de renderizado
 var score = 0;
+var namePlayer = sessionStorage.getItem('playerName');
 //Funciones de juego
 function preload() { //Cargar los assets
     this.load.crossOrigin = 'anonymous';
@@ -39,7 +40,9 @@ function preload() { //Cargar los assets
 }
 
 function create() {
-    text = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' })
+    textScore = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
+    textName = this.add.text(10, 30, '', { font: '16px Courier', fill: '#00ff00' });
+    textName.setText('Jugador: ' + namePlayer);
     this.anims.create({
         key: 'fire',
         frames: this.anims.generateFrameNumbers('ship', { frames: [0, 1, 2, 3, 4] }),
@@ -82,7 +85,7 @@ function create() {
 }
 
 function update() {
-    text.setText('Puntuación: ' + score)
+    textScore.setText('Puntuación: ' + score);
     if (group_e.getLength() == 2) {
         group_e = this.physics.add.group({
             key: 'ufo',
@@ -104,7 +107,8 @@ function createEnemi(ufo) {
 }
 
 function dead() {
-    // ship.destroy();
+    enviarScore(score);
+    ship.destroy();
 }
 
 function deadEnemi(bullet, enemi) { //Muerte del enemigo, se reciben dos parametros que son los objetos que colisionan

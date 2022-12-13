@@ -284,3 +284,28 @@ footer {
     font-size: 4.1vmin;
     transition: all .9s;
 }
+
+.nameWindow {
+    background-color: #3c4e4a;
+    border-radius: 25px;
+    position: absolute;
+    top: 30%;
+    height: 10%;
+    width: 20%;
+    transform: translateY(-50%);
+    display: none;
+    .form1 {
+        position: absolute;
+        color: white;
+        left: 10%;
+        top: 30%;
+        input {
+            width: 60%;
+        }
+    }
+    .uil-times-circle {
+        position: absolute;
+        left: 80%;
+        cursor: pointer;
+    }
+}

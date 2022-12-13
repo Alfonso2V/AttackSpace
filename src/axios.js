@@ -5,3 +5,8 @@ axios.get(URL).then((result) => {
 }).catch((err) => {
     console.log(err)
 });
+
+function enviarScore(score) {
+    console.log(score)
+}
+// enviarScore();
