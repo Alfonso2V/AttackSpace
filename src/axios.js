@@ -6,7 +6,12 @@ axios.get(URL).then((result) => {
     console.log(err)
 });
 
-function enviarScore(score) {
-    console.log(score)
+function enviarScore(score, namePlayer) {
+    if (sessionStorage.getItem('guardar') == "true") {
+        axios.post(URL, {
+            "name": namePlayer,
+            "score": score
+        })
+    }
+    sessionStorage.setItem('guardar', false);
 }
-// enviarScore();

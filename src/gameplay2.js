@@ -1,17 +1,27 @@
 // import { gameOver } from "./gameOver.js";
 const AMOUT_ENEMIGES = 7; //Enemigos en pantalla
 const SPEED_B = -300; //Velocidadd de las balas (Movimiento vertical negativo)
-// Clase gameOver
+//--------------------------------------------------- Clase gameOver
+var exitButon;
 class gameOver extends Phaser.Scene {
         preload() {
             this.load.image('face', '/assets/images/gameOver.jpg');
+            this.load.image('salir', '/assets/images/pausaBoton.png')
         }
 
         create(data) {
             this.face = this.add.image(data.x, data.y, 'face');
+            var salir = this.add.image(window.innerWidth / 2, window.innerHeight / 10 * 8, 'salir');
+            salir.setScale(.5).setInteractive();
+            this.input.on('gameobjectdown', function(pointer, gameobject) {
+                if (gameobject === salir) {
+                    window.location = '/index.html'
+                    console.log("Hola")
+                }
+            })
         }
     }
-    // Fin clase gameOver
+    // ---------------------------------------------------Fin clase gameOver
 var config = {
     type: Phaser.AUTO,
     width: window.innerWidth,
@@ -36,7 +46,6 @@ var destroySound;
 var flag = false;
 var group_e; //Grupo de enemigos
 var bullets = []; //Array de balas
-// var newEnemis = []; //Array de enemigos nuevos
 var game = new Phaser.Game(config); //Tamaño de ventana y motor de renderizado
 var score = 0;
 var namePlayer = sessionStorage.getItem('playerName');
@@ -101,7 +110,7 @@ function create() {
     this.physics.add.collider(ship, group_e, dead); //Colisiones entre los enemigos y la nave, llamada a funcion si se cumple
     this.physics.add.collider(group_e, bullets, deadEnemi)
         // Boton salir
-    this.input.on('gameobjectup', function(pointer, gameobject) {
+    this.input.on('gameobjectdown', function(pointer, gameobject) {
         if (gameobject === pauseButton) {
             window.location = '/index.html'
         }
@@ -132,10 +141,9 @@ function createEnemi(ufo) {
 }
 
 function dead() {
-    enviarScore(score);
+    enviarScore(score, namePlayer);
     ship.destroy();
-    game.scene.pause();
-    // game.scene.add('gameOver', gameOver, true, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    game.scene.add('gameOver', gameOver, true, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
 }
 
 function deadEnemi(bullet, enemi) { //Muerte del enemigo, se reciben dos parametros que son los objetos que colisionan

@@ -1,7 +1,6 @@
 // Titulo en howToPlay
 $(".header").append("<div class='glitch-window'>Como jugar</div>");
 $("h1.glitched").clone().appendTo(".glitch-window");
-
 // Tabla dinamica en puntuaciones
 function createTable(data) {
     // Ordenamiento mayor a menor
@@ -15,7 +14,7 @@ function createTable(data) {
             return 1;
         })
         // Fin ordenamiento
-    const Top5 = data.slice(0, 6); //Solo enviar los primero 5 valores mas altos
+    const Top5 = data.slice(0, 5); //Solo enviar los primero 5 valores mas altos
     let contador = 0;
     Top5.map(row => {
         contador++;
@@ -31,10 +30,11 @@ const tickMark = `<svg width="58" height="45" viewBox="0 0 58 45" xmlns="http://
 buttonText.innerHTML = "Guardar puntuacion?";
 
 button.addEventListener('click', function() {
-
     if (buttonText.innerHTML !== "Guardar puntuacion?") {
         buttonText.innerHTML = "Guardar puntuacion?";
+        sessionStorage.setItem('guardar', false);
     } else if (buttonText.innerHTML === "Guardar puntuacion?") {
+        sessionStorage.setItem('guardar', true);
         buttonText.innerHTML = tickMark;
     }
     this.classList.toggle('buttonPuntuaciones__circle');
