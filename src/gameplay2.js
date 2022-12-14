@@ -1,6 +1,17 @@
+// import { gameOver } from "./gameOver.js";
 const AMOUT_ENEMIGES = 7; //Enemigos en pantalla
-const SPEED_B = 5; //Velocidadd de las balas
-const SPEED_E = 0.3; //Velocidad enemigos
+const SPEED_B = -300; //Velocidadd de las balas (Movimiento vertical negativo)
+// Clase gameOver
+class gameOver extends Phaser.Scene {
+        preload() {
+            this.load.image('face', '/assets/images/gameOver.jpg');
+        }
+
+        create(data) {
+            this.face = this.add.image(data.x, data.y, 'face');
+        }
+    }
+    // Fin clase gameOver
 var config = {
     type: Phaser.AUTO,
     width: window.innerWidth,
@@ -16,6 +27,7 @@ var config = {
         preload: preload,
         create: create,
         update: update,
+        gameOver: gameOver,
     }
 };
 var ship;
@@ -24,24 +36,30 @@ var destroySound;
 var flag = false;
 var group_e; //Grupo de enemigos
 var bullets = []; //Array de balas
-var newEnemis = []; //Array de enemigos nuevos
+// var newEnemis = []; //Array de enemigos nuevos
 var game = new Phaser.Game(config); //Tamaño de ventana y motor de renderizado
 var score = 0;
 var namePlayer = sessionStorage.getItem('playerName');
+var textScore;
+var textName;
+var ufosGroup;
+var pauseButton;
 //Funciones de juego
 function preload() { //Cargar los assets
     this.load.crossOrigin = 'anonymous';
-    // this.load.image('backgroud', 'assets/images/estrellas.png');
+    this.load.image('backgroud', 'assets/images/estrellas.png');
     this.load.spritesheet('ship', '../assets/images/nave.png', { frameWidth: 150, frameHeight: 381 })
     this.load.spritesheet('ufos', 'assets/images/ufo.png', { frameWidth: 125, frameHeight: 136 }) // 125, 136, 8);
     this.load.image('bullet', 'assets/images/misil.png');
     this.load.audio('shot', ['../assets/sounds/disparo_1.mp3']);
     this.load.audio('destroy', ['../assets/sounds/explosion.mp3']);
+    this.load.image('pauseButton', ['../assets/images/pausaBoton.png']);
 }
 
 function create() {
     textScore = this.add.text(10, 10, '', { font: '16px Courier', fill: '#00ff00' });
     textName = this.add.text(10, 30, '', { font: '16px Courier', fill: '#00ff00' });
+    pauseButton = this.add.image(window.innerWidth / 10 * 9, window.innerHeight / 10, 'pauseButton').setScale(0.2).setInteractive();
     textName.setText('Jugador: ' + namePlayer);
     this.anims.create({
         key: 'fire',
@@ -76,12 +94,18 @@ function create() {
     });
     this.input.on('pointerdown', function(pointer) {
         bullet = this.physics.add.image(pointer.x, pointer.y, 'bullet').setScale(0.1);
-        bullet.setVelocityY(-300);
+        bullet.setVelocityY(SPEED_B);
         shotSound.play();
         bullets.push(bullet);
     }, this);
     this.physics.add.collider(ship, group_e, dead); //Colisiones entre los enemigos y la nave, llamada a funcion si se cumple
     this.physics.add.collider(group_e, bullets, deadEnemi)
+        // Boton salir
+    this.input.on('gameobjectup', function(pointer, gameobject) {
+        if (gameobject === pauseButton) {
+            window.location = '/index.html'
+        }
+    })
 }
 
 function update() {
@@ -92,7 +116,8 @@ function update() {
             repeat: AMOUT_ENEMIGES - 1 /* Numero de enemigos iniciales */
         });
         group_e.children.iterate(createEnemi, this);
-        this.physics.add.collider(group_e, bullets, deadEnemi); //Agregando colisiones a enemigos nuevos
+        this.physics.add.collider(group_e, bullets, deadEnemi); //Agregando colisiones a enemigos nuevos con las balas
+        this.physics.add.collider(ship, group_e, dead); //Colision a enemigos nuevos para perder
     }
 }
 //FIN FUNCIONES DE JUEGO
@@ -109,6 +134,8 @@ function createEnemi(ufo) {
 function dead() {
     enviarScore(score);
     ship.destroy();
+    game.scene.pause();
+    // game.scene.add('gameOver', gameOver, true, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
 }
 
 function deadEnemi(bullet, enemi) { //Muerte del enemigo, se reciben dos parametros que son los objetos que colisionan
